@@ -39,7 +39,7 @@ var mallaCubo;
     }
     function crear_plano(){
         geometria_plano=new THREE.PlaneGeometry(100,100,10,10);
-        textura_plano=new THREE.ImageUtils.loadTexture("textura/cesped.jpg");
+        textura_plano=new THREE.ImageUtils.loadTexture("textura/ajedrez1.jpg");
         textura_plano.wrapS=textura_plano.wrapT=THREE.RepeatWrapping;
         textura_plano.repeat.set(1,1);
 
