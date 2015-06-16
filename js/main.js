@@ -1,12 +1,12 @@
 var render, camara, escenario, figura, controls;
 var ancho=window.innerWidth-10;
-var alto=window.innerHeight-10;
+var alto=window.innerHeight-50;
 var angulo=45;
 var aspecto=ancho/alto;
 var cerca=0.1;
 var lejos=10000;
-ancho=800;
-alto=600;
+//ancho=800;
+//alto=600;
 var textura_all=new THREE.ImageUtils.loadTexture("textura/madera.jpg");
 textura_all.wrapS=textura_all.wrapT=THREE.RepeatWrapping;
 textura_all.repeat.set(0.05,0.05);
