@@ -1,7 +1,7 @@
 var render, camara, escenario, figura, controls;
 var ancho=window.innerWidth-10;
 var alto=window.innerHeight-50;
-var angulo=45;
+var angulo=60;
 var aspecto=ancho/alto;
 var cerca=0.1;
 var lejos=10000;
@@ -27,30 +27,31 @@ var mallaCubo;
 
         camara=new THREE.PerspectiveCamera(angulo, aspecto, cerca, lejos);
         camara.position.z=50;
-        camara.position.y=10;
+        camara.position.y=20;
+				camara.position.x=20;
         escenario.add(camara);
 
         render.render(escenario,camara);
         //crear_cubo();
         crear_plano();
         //cargarMario1();
-        controls=new THREE.OrbitControls(camara, render.domElement);
+				controls=new THREE.OrbitControls(camara, render.domElement);
 
     }
-    function crear_plano(){
-        geometria_plano=new THREE.PlaneGeometry(100,100,10,10);
-        textura_plano=new THREE.ImageUtils.loadTexture("textura/ajedrez1.jpg");
-        textura_plano.wrapS=textura_plano.wrapT=THREE.RepeatWrapping;
-        textura_plano.repeat.set(1,1);
+function crear_plano(){
+    geometria_plano=new THREE.PlaneGeometry(100,100,10,10);
+    textura_plano=new THREE.ImageUtils.loadTexture("textura/ajedrez1.jpg");
+    textura_plano.wrapS=textura_plano.wrapT=THREE.RepeatWrapping;
+    textura_plano.repeat.set(1,1);
 
-        console.log("crear_plano");
-        material_plano=new THREE.MeshBasicMaterial({map:textura_plano, side:THREE.DoubleSide});
-        territorio=new THREE.Mesh(geometria_plano, material_plano);
-        //territorio.rotation.y=-0.5;
-        territorio.rotation.x=Math.PI/2;
-        escenario.add(territorio);
+    console.log("crear_plano");
+    material_plano=new THREE.MeshBasicMaterial({map:textura_plano, side:THREE.DoubleSide});
+    territorio=new THREE.Mesh(geometria_plano, material_plano);
+    //territorio.rotation.y=-0.5;
+    territorio.rotation.x=Math.PI/2;
+    escenario.add(territorio);
 
-    }
+}
     $('#plano').click(function(){crear_plano();});
     /*
     function animacion(){
@@ -119,25 +120,27 @@ function crear_figura(){
 }
     $('#figura').click(function(){crear_figura();});
 function crear_cubo(){
-  
-geometria_cubo=new THREE.CubeGeometry(10, 10,10);
-material_cubo=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
+       var size = 10; 
+    geometria_cubo=new THREE.CubeGeometry(size, size, size);
+    material_cubo=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
 
-mallaCubo=new THREE.Mesh(geometria_cubo, material_cubo);
+    mallaCubo=new THREE.Mesh(geometria_cubo, material_cubo);
 
-        escenario.add(mallaCubo);
+    //Colocar encima del plano
+    mallaCubo.position.y = size/2;
+    escenario.add(mallaCubo);
 
 }
 
  $('#cubo').click(function(){crear_cubo();});
 
- function crear_cilindro(){
-  
-geometria_cy=new THREE.CylinderGeometry(10, 10,20,50,50,false);
-material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
+function crear_cilindro(){
+    var radio = 10, height = 20, segments = 50;
+    geometria_cy=new THREE.CylinderGeometry(radio, radio , height, segments, segments,false);
+    material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
 
-mallaCy=new THREE.Mesh(geometria_cy, material_cy);
-
+    mallaCy=new THREE.Mesh(geometria_cy, material_cy);
+    mallaCy.position.y = height/2;
         escenario.add(mallaCy);
 
 }
@@ -145,13 +148,13 @@ mallaCy=new THREE.Mesh(geometria_cy, material_cy);
  $('#cilindro').click(function(){crear_cilindro();});
 
 
- function crear_esfera(){
-  
-geometria_cy=new THREE.SphereGeometry(10,50,50);
-material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
-
-mallaCy=new THREE.Mesh(geometria_cy, material_cy);
-
+function crear_esfera(){
+		var radio = 10, segments = 50;  
+    geometria_cy=new THREE.SphereGeometry(radio,segments,segments);
+    material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
+		
+    mallaCy=new THREE.Mesh(geometria_cy, material_cy);
+		mallaCy.position.y = radio;
         escenario.add(mallaCy);
 
 }
