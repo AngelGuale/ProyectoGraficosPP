@@ -35,6 +35,7 @@ var mallaCubo;
         //crear_cubo();
         crear_plano();
         //cargarMario1();
+				//descomenta la siguiente linea para habilitar el movimiento de la camara
 				//controls=new THREE.OrbitControls(camara, render.domElement);
 
     }
@@ -161,7 +162,26 @@ function crear_esfera(){
 
  $('#esfera').click(function(){crear_esfera();});
 
+function crear_dona(){
+	var radius = 10;
+  var tubeRadius = 3;
+  var radialSegments = 8 * 10;
+  var tubularSegments = 6 * 15;
+  var arc = Math.PI * 2;
+  var geometry = new THREE.TorusGeometry( radius, tubeRadius, radialSegments, tubularSegments, arc );
+  var material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
+    
+  for ( var i = 0; i < 1; i ++ ) {
+    var mesh = new THREE.Mesh( geometry, material_cy );
+		mesh.position.y = radius + tubeRadius;
+    mesh.updateMatrix();
+    mesh.matrixAutoUpdate = false;
+    escenario.add( mesh );
+		console.log("iteration");
+  }
+}
 
+ $('#dona').click(function(){crear_dona();});
  function animacion(){
 
 requestAnimationFrame(animacion);
