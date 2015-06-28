@@ -8,3 +8,8 @@ menu{
 bottom: 0;
 	right: 0;
 }
+
+li {
+	float: left;
+	margin-left: 25px;
+}

@@ -1,7 +1,7 @@
 var render, camara, escenario, figura, controls;
 var ancho=window.innerWidth-10;
 var alto=window.innerHeight-50;
-var angulo=60;
+var angulo=70;
 var aspecto=ancho/alto;
 var cerca=0.1;
 var lejos=10000;
@@ -26,16 +26,16 @@ var mallaCubo;
 
 
         camara=new THREE.PerspectiveCamera(angulo, aspecto, cerca, lejos);
-        camara.position.z=50;
+        camara.position.z=90;
         camara.position.y=20;
-				camara.position.x=20;
+				camara.position.x=0;
         escenario.add(camara);
 
         render.render(escenario,camara);
         //crear_cubo();
         crear_plano();
         //cargarMario1();
-				controls=new THREE.OrbitControls(camara, render.domElement);
+				//controls=new THREE.OrbitControls(camara, render.domElement);
 
     }
 function crear_plano(){
@@ -134,9 +134,9 @@ function crear_cubo(){
 
  $('#cubo').click(function(){crear_cubo();});
 
-function crear_cilindro(){
-    var radio = 10, height = 20, segments = 50;
-    geometria_cy=new THREE.CylinderGeometry(radio, radio , height, segments, segments,false);
+function crear_piramide(){
+    var height = 20; 
+    geometria_cy=new THREE.CylinderGeometry(0.01, height	, height, 4);
     material_cy=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
 
     mallaCy=new THREE.Mesh(geometria_cy, material_cy);
@@ -145,7 +145,7 @@ function crear_cilindro(){
 
 }
 
- $('#cilindro').click(function(){crear_cilindro();});
+ $('#piramide').click(function(){crear_piramide();});
 
 
 function crear_esfera(){
