@@ -188,24 +188,43 @@ function crear_dona(){
     mesh.updateMatrix();
     mesh.matrixAutoUpdate = false;
     escenario.add( mesh );
-		console.log("iteration");
   }
+	//TEST rotar 90 grados
+	rotateYGeometry(geometry, 3.141592654/2);
 }
-//Esta funcion puede trasladar cualquier figura
-function translateGeometry(geo, vector){
+
+//Esta funcion modifica cualquier figura con la matriz que quieras
+function alterGeometry(geo, matrix){
 	var size = geo.vertices.length;
 	var i;
-	var matrix = createTranslateMatrix(vector.x, vector.y, vector.z);
 	for(i = 0; i < size; i++){
 		var vertex = geo.vertices[i];
 		var newValues = applyTransformation(matrix, vectorToArray(vertex));
 		vertex.set(newValues[0], newValues[1], newValues[2]);
 	}
 	geo.verticesNeedUpdate = true;
+}	
+
+//Esta funcion puede trasladar cualquier figura
+function translateGeometry(geo, vector){
+	var matrix = createTranslateMatrix(vector.x, vector.y, vector.z);
+	alterGeometry(geo, matrix);
 }
-		
-
-
+//Esta funcion puede rotar cualquier figura en el eje Y
+function rotateYGeometry(geo, deg){
+	var matrix = createYRotationMatrix(deg);
+	alterGeometry(geo, matrix);
+}
+//Esta funcion puede rotar cualquier figura en el eje X
+function rotateXGeometry(geo, deg){
+	var matrix = createXRotationMatrix(deg);
+	alterGeometry(geo, matrix);
+}
+//Esta funcion puede rotar cualquier figura en el eje Z
+function rotateZGeometry(geo, deg){
+	var matrix = createZRotationMatrix(deg);
+	alterGeometry(geo, matrix);
+}
  $('#dona').click(function(){crear_dona();});
  function animacion(){
 

@@ -15,8 +15,32 @@ function createTranslateMatrix(x, y, z){
 	return identity;
 }
 
-	
-function vectorToArray(vector){
+function createXRotationMatrix(deg){
+	var identity = createIdentityMatrix();
+	identity[1][1] = Math.cos(deg);
+	identity[1][2] = -Math.sin(deg);
+	identity[2][1] = Math.sin(deg);
+	identity[2][2] = Math.cos(deg);
+	return identity;
+}
+
+function createYRotationMatrix(deg){
+	var identity = createIdentityMatrix();
+	identity[0][0] = Math.cos(deg);
+	identity[0][2] = Math.sin(deg);
+	identity[2][0] = -Math.sin(deg);
+	identity[2][2] = Math.cos(deg);
+	return identity;
+}
+function createZRotationMatrix(deg){
+	var identity = createIdentityMatrix();
+	identity[0][0] = Math.cos(deg);
+	identity[0][1] = -Math.sin(deg);
+	identity[1][0] = Math.sin(deg);
+	identity[1][1] = Math.cos(deg);
+	return identity;
+}
+function vectorToArray(vector, position){
 	var arr = [];
 	arr[0] = vector.x;
 	arr[1] = vector.y;
