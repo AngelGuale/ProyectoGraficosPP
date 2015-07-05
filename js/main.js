@@ -11,7 +11,8 @@ var textura_all=new THREE.ImageUtils.loadTexture("textura/madera.jpg");
 textura_all.wrapS=textura_all.wrapT=THREE.RepeatWrapping;
 textura_all.repeat.set(0.05,0.05);
 var mallaCubo;
-
+var activeGeometry;
+var activeMesh;
     init();
     animacion();
 
@@ -130,10 +131,16 @@ function crear_cubo(){
     //Colocar encima del plano
     mallaCubo.position.y = size/2;
     escenario.add(mallaCubo);
+    activeGeometry = geometria_cubo;
+    activeMesh = mallaCubo;	
 
 }
 
- $('#cubo').click(function(){crear_cubo();});
+ $('#cubo').click(function(){
+	 crear_cubo();
+ 	 removeMenu($("#figuras"));
+	setMenu($("#transformaciones"));
+});
 
 function crear_piramide(){
     var height = 20; 
@@ -143,15 +150,15 @@ function crear_piramide(){
     mallaCy=new THREE.Mesh(geometria_cy, material_cy);
     mallaCy.position.y = height/2;
         escenario.add(mallaCy);
-		//TEST
-		var vec = [];
-		vec.x = 20;
-		vec.y = 10;
-		vec.z = 35;
-		translateGeometry(geometria_cy, vec);
+    activeGeometry = geometria_cy;
+    activeMesh = mallaCy;	
 }
 
- $('#piramide').click(function(){crear_piramide();});
+ $('#piramide').click(function(){
+	 crear_piramide();
+ 	 removeMenu($("#figuras"));
+	setMenu($("#transformaciones"));
+});
 
 
 function crear_esfera(){
@@ -162,16 +169,16 @@ function crear_esfera(){
     mallaCy=new THREE.Mesh(geometria_cy, material_cy);
 		mallaCy.position.y = radio;
         escenario.add(mallaCy);
-		//TEST
-		var vec = [];
-		vec.x = 2;
-		vec.y = 2;
-		vec.z = 2;
-		scaleGeometry(geometria_cy, vec);
+	 activeGeometry = geometria_cy;
+ 	 activeMesh = mallaCy;
 
 }
 
- $('#esfera').click(function(){crear_esfera();});
+ $('#esfera').click(function(){
+	 crear_esfera()
+	 removeMenu($("#figuras"));
+	setMenu($("#transformaciones"));
+;});
 
 function crear_dona(){
 	var radius = 10;
@@ -189,8 +196,8 @@ function crear_dona(){
     mesh.matrixAutoUpdate = false;
     escenario.add( mesh );
   }
-	//TEST rotar 90 grados
-	rotateXGeometry(geometry, 3.141592654/2, mesh.position);
+  activeGeometry = geometry;
+  activeMesh = mesh;
 }
 
 //Esta funcion modifica cualquier figura con la matriz que quieras
@@ -226,9 +233,9 @@ function translateGeometry(geo, vector){
 }
 
 //Esta funcion puede hacer scaling cualquier figura
-function scaleGeometry(geo, vector){
+function scaleGeometry(geo, vector, position){
 	var matrix = createScalingMatrix(vector.x, vector.y, vector.z);
-	alterGeometry(geo, matrix);
+	alterGeometryAbsolute(geo, matrix, position);
 }
 //Esta funcion puede rotar cualquier figura en el eje Y
 function rotateYGeometry(geo, deg, position){
@@ -245,7 +252,82 @@ function rotateZGeometry(geo, deg, position){
 	var matrix = createZRotationMatrix(deg);
 	alterGeometryAbsolute(geo, matrix, position);
 }
- $('#dona').click(function(){crear_dona();});
+function removeMenu(menu){
+	menu.removeClass("buttons-active");
+	menu.addClass("buttons-inactive");
+}
+
+function setMenu(menu){
+	menu.removeClass("buttons-inactive");
+	menu.addClass("buttons-active");
+}
+
+ $('#dona').click(function(){
+	crear_dona();
+	removeMenu($("#figuras"));
+	setMenu($("#transformaciones"));
+ });
+
+$('#traslacion').click(function(){
+	removeMenu($("#transformaciones"));
+	setMenu($("#tras-menu"));
+ });
+
+$('#tras-back').click(function(){
+	removeMenu($("#tras-menu"));
+	setMenu($("#transformaciones"));
+});
+
+ $('#tras-ok').click(function(){
+	 var vector = [];
+	 vector.x = $("#inputX").val();
+	 vector.y = $("#inputY").val();
+	 vector.z = $("#inputZ").val();
+	translateGeometry(activeGeometry,vector);
+ });
+
+$('#rotacion').click(function(){
+	removeMenu($("#transformaciones"));
+	setMenu($("#rot-menu"));
+ });
+
+$('#rot-back').click(function(){
+	removeMenu($("#rot-menu"));
+	setMenu($("#transformaciones"));
+});
+
+ $('#rot-ok').click(function(){
+	 var vector = [];
+	 var deg = $("#inputDeg").val() * Math.PI;
+	 var eje = $("#rot-eje").val();
+	 if(eje == "X")
+		rotateXGeometry(activeGeometry, deg, activeMesh.position);
+ 	else if(eje == "Y")
+		rotateYGeometry(activeGeometry, deg, activeMesh.position);
+ 	else if(eje == "Z")
+		rotateZGeometry(activeGeometry, deg, activeMesh.position);
+
+ });
+
+$('#escalamiento').click(function(){
+	removeMenu($("#transformaciones"));
+	setMenu($("#sca-menu"));
+ });
+
+$('#sca-back').click(function(){
+	removeMenu($("#sca-menu"));
+	setMenu($("#transformaciones"));
+});
+
+ $('#sca-ok').click(function(){
+	 var vector = [];
+	 vector.x = $("#scaX").val();
+	 vector.y = $("#scaY").val();
+	 vector.z = $("#scaZ").val();
+	 scaleGeometry(activeGeometry,vector, activeMesh.position);
+ });
+
+
  function animacion(){
 
 requestAnimationFrame(animacion);

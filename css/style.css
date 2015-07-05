@@ -1,3 +1,6 @@
+body{
+	width : 100%;
+}
 canvas {
     
     /*position: fixed;*/
@@ -12,4 +15,36 @@ bottom: 0;
 li {
 	float: left;
 	margin-left: 25px;
+}
+
+.buttons-active {
+	display : inline-block;
+}
+.buttons-inactive {
+	display : none;
+}
+#menu {
+	text-align: center;
+	position : fixed;
+	top : 0;
+	left : 0;
+	width : 100%;
+	background-color: white;
+}
+
+button {
+	margin : 5px;
+	background: rgb(66, 184, 221); /* this is a light blue */
+	font-size: 110%;
+	padding-left : 20px;
+	padding-right : 20px;
+	color:#FFF;
+}
+
+.opt {
+	width : 40px;
+}
+
+button.cancel {
+	background: rgb(223, 117, 20); /* this is an orange */
 }

@@ -15,13 +15,49 @@
 
 	 <div id="render"></div>
 <div  id="menu">
-		<ul>
-			<li ><a href="#" id="plano" >Plano</a></li>
-			<li ><a id='dona' href="#">Dona</a></li>
-			<li ><a href="#" id='piramide'>Piramide</a></li>
-			<li ><a  id='cubo' href="#">Cubo</a></li>
-			<li ><a id='esfera' href="#">Esfera</a></li>
-		</ul>
+	<div id="figuras" class="buttons-active">
+			<button id='dona' >Dona</button>
+			<button id='piramide'>Piramide</button>
+			<button  id='cubo' >Cubo</button>
+			<button id='esfera'>Esfera</button>
+	</div>
+	<div id="transformaciones" class="buttons-inactive">
+			<button id='traslacion' >Traslacion</button>
+			<button id='rotacion'>Rotacion</button>
+			<button  id='escalamiento'>Escalamiento</button>
+	</div>
+	<div id="tras-menu" class="buttons-inactive">
+			<a>X:&nbsp</a>
+			<input id="inputX" type='number' value="1" class="opt"/>
+			<a>Y:&nbsp</a>
+			<input id="inputY" type='number' value="1"class="opt" />
+			<a>Z:&nbsp</a>
+			<input id="inputZ" type='number' value="1" class="opt"/>
+			<button id='tras-ok' >OK</button>
+			<button id="tras-back" class="cancel">Regresar</button>
+	</div>
+	<div id="sca-menu" class="buttons-inactive">
+			<a>X:&nbsp</a>
+			<input id="scaX" type='number' value="2" class="opt"/>
+			<a>Y:&nbsp</a>
+			<input id="scaY" type='number' value="2"class="opt" />
+			<a>Z:&nbsp</a>
+			<input id="scaZ" type='number' value="2" class="opt"/>
+			<button id='sca-ok' >OK</button>
+			<button id="sca-back" class="cancel">Regresar</button>
+	</div>
+
+	<div id="rot-menu" class="buttons-inactive">
+			<a>Grados:&nbsp</a>
+			<input id="inputDeg" type='number' value="0.1" class="opt"/>
+			<a>&Pi;&nbspEje:&nbsp</a>
+			<select id="rot-eje" class="opt">
+				<option value="X">X</option>
+				<option value="Y">Y</option>
+				<option value="Z">Z</option>
+			</select>
+			<button id='rot-ok' >OK</button>
+			<button id="rot-back" class="cancel">Regresar</button>
 	</div>
 	    <script src="js/matrix.js"></script>
 	    <script src="js/main.js"></script>
