@@ -164,10 +164,10 @@ function crear_esfera(){
         escenario.add(mallaCy);
 		//TEST
 		var vec = [];
-		vec.x = 20;
-		vec.y = 10;
-		vec.z = 35;
-		translateGeometry(geometria_cy, vec);
+		vec.x = 2;
+		vec.y = 2;
+		vec.z = 2;
+		scaleGeometry(geometria_cy, vec);
 
 }
 
@@ -190,7 +190,7 @@ function crear_dona(){
     escenario.add( mesh );
   }
 	//TEST rotar 90 grados
-	rotateYGeometry(geometry, 3.141592654/2);
+	rotateXGeometry(geometry, 3.141592654/2, mesh.position);
 }
 
 //Esta funcion modifica cualquier figura con la matriz que quieras
@@ -204,26 +204,46 @@ function alterGeometry(geo, matrix){
 	}
 	geo.verticesNeedUpdate = true;
 }	
-
+ 
+//Esta funcion modifica cualquier figura con la matriz que quieras usando coordenadas absoultas
+function alterGeometryAbsolute(geo, matrix, position){
+	var size = geo.vertices.length;
+	var i;
+	for(i = 0; i < size; i++){
+		var vertex = geo.vertices[i];
+		//transformar a absoultas
+		vertex.set(vertex.x + position.x, vertex.y + position.y, vertex.z + position.z)
+		var newValues = applyTransformation(matrix, vectorToArray(vertex));
+		//colocar resultado regresando a relativas
+		vertex.set(newValues[0] - position.x, newValues[1] - position.y, newValues[2] - position.z);
+	}
+	geo.verticesNeedUpdate = true;
+}
 //Esta funcion puede trasladar cualquier figura
 function translateGeometry(geo, vector){
 	var matrix = createTranslateMatrix(vector.x, vector.y, vector.z);
 	alterGeometry(geo, matrix);
 }
-//Esta funcion puede rotar cualquier figura en el eje Y
-function rotateYGeometry(geo, deg){
-	var matrix = createYRotationMatrix(deg);
+
+//Esta funcion puede hacer scaling cualquier figura
+function scaleGeometry(geo, vector){
+	var matrix = createScalingMatrix(vector.x, vector.y, vector.z);
 	alterGeometry(geo, matrix);
+}
+//Esta funcion puede rotar cualquier figura en el eje Y
+function rotateYGeometry(geo, deg, position){
+	var matrix = createYRotationMatrix(deg);
+	alterGeometryAbsolute(geo, matrix, position);
 }
 //Esta funcion puede rotar cualquier figura en el eje X
-function rotateXGeometry(geo, deg){
+function rotateXGeometry(geo, deg, position){
 	var matrix = createXRotationMatrix(deg);
-	alterGeometry(geo, matrix);
+	alterGeometryAbsolute(geo, matrix, position);
 }
 //Esta funcion puede rotar cualquier figura en el eje Z
-function rotateZGeometry(geo, deg){
+function rotateZGeometry(geo, deg, position){
 	var matrix = createZRotationMatrix(deg);
-	alterGeometry(geo, matrix);
+	alterGeometryAbsolute(geo, matrix, position);
 }
  $('#dona').click(function(){crear_dona();});
  function animacion(){

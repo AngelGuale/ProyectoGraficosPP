@@ -15,6 +15,14 @@ function createTranslateMatrix(x, y, z){
 	return identity;
 }
 
+function createScalingMatrix(x, y, z){
+	var identity = createIdentityMatrix();
+	identity[0][0] = x;
+	identity[1][1] = y;
+	identity[2][2] = z;
+	return identity;
+}
+
 function createXRotationMatrix(deg){
 	var identity = createIdentityMatrix();
 	identity[1][1] = Math.cos(deg);
