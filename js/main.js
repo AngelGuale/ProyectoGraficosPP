@@ -143,7 +143,12 @@ function crear_piramide(){
     mallaCy=new THREE.Mesh(geometria_cy, material_cy);
     mallaCy.position.y = height/2;
         escenario.add(mallaCy);
-
+		//TEST
+		var vec = [];
+		vec.x = 20;
+		vec.y = 10;
+		vec.z = 35;
+		translateGeometry(geometria_cy, vec);
 }
 
  $('#piramide').click(function(){crear_piramide();});
@@ -157,6 +162,12 @@ function crear_esfera(){
     mallaCy=new THREE.Mesh(geometria_cy, material_cy);
 		mallaCy.position.y = radio;
         escenario.add(mallaCy);
+		//TEST
+		var vec = [];
+		vec.x = 20;
+		vec.y = 10;
+		vec.z = 35;
+		translateGeometry(geometria_cy, vec);
 
 }
 
@@ -180,6 +191,20 @@ function crear_dona(){
 		console.log("iteration");
   }
 }
+//Esta funcion puede trasladar cualquier figura
+function translateGeometry(geo, vector){
+	var size = geo.vertices.length;
+	var i;
+	var matrix = createTranslateMatrix(vector.x, vector.y, vector.z);
+	for(i = 0; i < size; i++){
+		var vertex = geo.vertices[i];
+		var newValues = applyTransformation(matrix, vectorToArray(vertex));
+		vertex.set(newValues[0], newValues[1], newValues[2]);
+	}
+	geo.verticesNeedUpdate = true;
+}
+		
+
 
  $('#dona').click(function(){crear_dona();});
  function animacion(){
