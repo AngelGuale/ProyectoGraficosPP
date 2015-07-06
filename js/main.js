@@ -122,7 +122,7 @@ function crear_figura(){
 }
     $('#figura').click(function(){crear_figura();});
 function crear_cubo(){
-       var size = 10; 
+    var size = 20; 
     geometria_cubo=new THREE.CubeGeometry(size, size, size);
     material_cubo=new THREE.MeshBasicMaterial({map:textura_all, side:THREE.DoubleSide, wireframe:false});
 
@@ -327,6 +327,10 @@ $('#sca-back').click(function(){
 	 scaleGeometry(activeGeometry,vector, activeMesh.position);
  });
 
+$('#regresar').click(function(){
+    removeMenu($("#transformaciones"));
+    setMenu($("#figuras"));
+});
 
  function animacion(){
 
