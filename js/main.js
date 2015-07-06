@@ -1,4 +1,4 @@
-var render, camara, escenario, figura, controls;
+var render, camara, escenario, figura, controls, territorio;
 var ancho=window.innerWidth-10;
 var alto=window.innerHeight-50;
 var angulo=70;
@@ -137,7 +137,8 @@ function crear_cubo(){
 }
 
  $('#cubo').click(function(){
-	 crear_cubo();
+	 removerFiguras();
+     crear_cubo();
  	 removeMenu($("#figuras"));
 	setMenu($("#transformaciones"));
 });
@@ -155,9 +156,11 @@ function crear_piramide(){
 }
 
  $('#piramide').click(function(){
-	 crear_piramide();
+	removerFiguras();
+     crear_piramide();
  	 removeMenu($("#figuras"));
 	setMenu($("#transformaciones"));
+
 });
 
 
@@ -175,7 +178,8 @@ function crear_esfera(){
 }
 
  $('#esfera').click(function(){
-	 crear_esfera()
+	removerFiguras();
+     crear_esfera()
 	 removeMenu($("#figuras"));
 	setMenu($("#transformaciones"));
 ;});
@@ -262,7 +266,18 @@ function setMenu(menu){
 	menu.addClass("buttons-active");
 }
 
+function removerFiguras() {
+   var obj, i;
+for ( i = escenario.children.length - 1; i >= 0 ; i -- ) {
+    obj = escenario.children[ i ];
+    if ( obj !== territorio && obj !== camara) {
+        escenario.remove(obj);
+    }
+}
+}
+
  $('#dona').click(function(){
+    removerFiguras();
 	crear_dona();
 	removeMenu($("#figuras"));
 	setMenu($("#transformaciones"));
